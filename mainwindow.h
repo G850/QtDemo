@@ -11,7 +11,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public://公共
+public://公共sgjdfj
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
