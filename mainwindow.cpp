@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) //构造函数
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);//设置UI
+
+//    ui->
 }
 
 MainWindow::~MainWindow()   //xi构函数
@@ -14,13 +16,13 @@ MainWindow::~MainWindow()   //xi构函数
 }
 
 //! [3]
-void MainWindow::closeEvent(QCloseEvent *event)
-//! [3] //! [4]
-{
-    if (maybeSave()) {
-        writeSettings();
-        event->accept();
-    } else {
-        event->ignore();
-    }
-}
+//void MainWindow::closeEvent(QCloseEvent *event)
+////! [3] //! [4]
+//{
+//    if (maybeSave()) {
+//        writeSettings();
+//        event->accept();
+//    } else {
+//        event->ignore();
+//    }
+//}

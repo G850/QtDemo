@@ -17,5 +17,7 @@ public://公共sgjdfj
 
 private://私人的
     Ui::MainWindow *ui;
+
+//    void MainWindow::closeEvent(QCloseEvent *event);
 };
 #endif // MAINWINDOW_H
