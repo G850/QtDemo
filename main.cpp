@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     parser.process(a);//处理应用a
 
     MainWindow w;
-    w.show();//
+    w.show();//git测试
 
     return a.exec();//执行
 
