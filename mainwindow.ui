@@ -17,8 +17,8 @@
    <widget class="QLabel" name="textlabel">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>30</x>
+      <y>30</y>
       <width>231</width>
       <height>31</height>
      </rect>
@@ -38,14 +38,14 @@
    <widget class="QPushButton" name="actionConfigure">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>60</y>
+      <x>30</x>
+      <y>130</y>
       <width>80</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>配置</string>
+     <string>1</string>
     </property>
    </widget>
   </widget>

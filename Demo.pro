@@ -22,11 +22,11 @@ SOURCES += \
 
 HEADERS += \
     mainwindow.h \
-    settingsdialog.h \
     settingsdialog.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    settingsdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

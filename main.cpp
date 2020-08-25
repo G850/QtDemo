@@ -23,13 +23,8 @@ int main(int argc, char *argv[])
 
 //    return a.exec();//执行
 
-
     MainWindow mainWin;
     mainWin.show();
     return app.exec();
-
-
-
-
 
 }

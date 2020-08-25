@@ -3,26 +3,26 @@
 
 #include <QDialog>
 
+QT_USE_NAMESPACE
+
+QT_BEGIN_NAMESPACE
+
 namespace Ui {
 class SettingsDialog;
 }
 
+QT_END_NAMESPACE
+
 class SettingsDialog : public QDialog
 {
-    Q_OBJECT    //只有加入了Q_OBJECT，你才能使用QT中的signal和slot机制。
+    Q_OBJECT
 
 public:
-
-//    explicit SettingsDialog(QWidget *parent = nullptr); //显性
-//    ~SettingsDialog();
+    explicit SettingsDialog(QWidget *parent = 0);
+    ~SettingsDialog();
 
 private:
-
-//    Ui::SettingsDialog *ui;
-
+    Ui::SettingsDialog *ui;
 };
-
-
-
 
 #endif // SETTINGSDIALOG_H
