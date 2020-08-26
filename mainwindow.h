@@ -5,12 +5,19 @@
 
 #include <QMainWindow>
 
-
+#include <QtSerialPort/QSerialPort>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+
+class QLabel;
+
+namespace Ui {
+class MainWindow;
+
+}
 QT_END_NAMESPACE
 
+class Console;
 class SettingsDialog;
 
 class MainWindow : public QMainWindow
@@ -22,16 +29,22 @@ public://公共sgjdfj
     ~MainWindow();
 
 private slots:
-
-    void on_actionConfigure_toggled(bool checked);
+    void openSerialPort();
+    void closeSerialPort();
+    void writeData(const QByteArray &data);
+    void readData();
 
 private:
     void initActionsConnections();
-    void show11(void);
+    void settingsShow(void);
 
 private://私人的
-    Ui::MainWindow *ui;
+    void showStatusMessage(const QString &message);
 
+    Ui::MainWindow *ui;
+    QLabel *status;
+    Console *console;
+    QSerialPort *serial;
     SettingsDialog *settings;
 
 //    void MainWindow::closeEvent(QCloseEvent *event);

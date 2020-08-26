@@ -29,6 +29,8 @@ public:
     QWidget *centralwidget;
     QLabel *textlabel;
     QPushButton *actionConfigure;
+    QPushButton *actionConnect;
+    QPushButton *actionDisconnect;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -50,7 +52,13 @@ public:
         textlabel->setFont(font);
         actionConfigure = new QPushButton(centralwidget);
         actionConfigure->setObjectName(QStringLiteral("actionConfigure"));
-        actionConfigure->setGeometry(QRect(30, 130, 80, 20));
+        actionConfigure->setGeometry(QRect(180, 160, 80, 20));
+        actionConnect = new QPushButton(centralwidget);
+        actionConnect->setObjectName(QStringLiteral("actionConnect"));
+        actionConnect->setGeometry(QRect(0, 140, 80, 20));
+        actionDisconnect = new QPushButton(centralwidget);
+        actionDisconnect->setObjectName(QStringLiteral("actionDisconnect"));
+        actionDisconnect->setGeometry(QRect(0, 170, 80, 20));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -69,7 +77,9 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
         textlabel->setText(QApplication::translate("MainWindow", "Hello\357\274\214Wd!kfkkkfk", Q_NULLPTR));
-        actionConfigure->setText(QApplication::translate("MainWindow", "1", Q_NULLPTR));
+        actionConfigure->setText(QApplication::translate("MainWindow", "\351\205\215\347\275\256", Q_NULLPTR));
+        actionConnect->setText(QApplication::translate("MainWindow", "\350\277\236\346\216\245", Q_NULLPTR));
+        actionDisconnect->setText(QApplication::translate("MainWindow", "\346\226\255\345\274\200", Q_NULLPTR));
     } // retranslateUi
 
 };

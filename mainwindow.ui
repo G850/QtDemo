@@ -38,14 +38,40 @@
    <widget class="QPushButton" name="actionConfigure">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>130</y>
+      <x>180</x>
+      <y>160</y>
       <width>80</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>1</string>
+     <string>配置</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="actionConnect">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>140</y>
+      <width>80</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>连接</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="actionDisconnect">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>170</y>
+      <width>80</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>断开</string>
     </property>
    </widget>
   </widget>
