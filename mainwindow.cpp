@@ -11,19 +11,29 @@ MainWindow::MainWindow(QWidget *parent) //构造函数
 {
     ui->setupUi(this);//设置UI
 
-//    console = new Console; //控制台参数
-//    console->setEnabled(false);
+    console = new Console; //控制台参数
+    console->setEnabled(false);
 //    setCentralWidget(console);
 
     serial = new QSerialPort(this); //创建串口
     
     settings = new SettingsDialog;
 
+    ui->actionConnect->setEnabled(true);       //连接
+    ui->actionDisconnect->setEnabled(false);   //断开
+    ui->actionConfigure->setEnabled(true);     //配置
+
 //    status = new QLabel;
 //    ui->statusBar->addWidget(status);
 
     initActionsConnections();       //初始化连接动作
 
+    connect(serial, static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>(&QSerialPort::error),
+            this, &MainWindow::handleError);
+
+    connect(serial, &QSerialPort::readyRead, this, &MainWindow::readData);      //读数据
+
+//    connect(ui->textEdit_2, &Console::getData, this, &MainWindow::writeData);          //写数据
 }
 
 MainWindow::~MainWindow()   //xi构函数
@@ -34,13 +44,12 @@ MainWindow::~MainWindow()   //xi构函数
 
 void MainWindow::initActionsConnections()       //初始化动作连接
 {
-    connect(ui->actionConnect, &QPushButton::clicked, this, &MainWindow::openSerialPort);
-//    connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
+    connect(ui->actionConnect,    &QPushButton::clicked, this, &MainWindow::openSerialPort);
+    connect(ui->actionDisconnect, &QPushButton::clicked, this, &MainWindow::closeSerialPort);
 //    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
 //    connect(ui->actionConfigure, &QAction::triggered, settings, &SettingsDialog::show);
-    connect(ui->actionConfigure, &QPushButton::clicked, this, &MainWindow::settingsShow);
-
-//    connect(ui->actionClear, &QAction::triggered, console, &Console::clear);
+    connect(ui->actionConfigure,  &QPushButton::clicked, this, &MainWindow::settingsShow);
+    connect(ui->actionClear,      &QPushButton::clicked, this, &MainWindow::clearReadArea);
 //    connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::about);
 //    connect(ui->actionAboutQt, &QAction::triggered, qApp, &QApplication::aboutQt);
 }
@@ -71,7 +80,7 @@ void MainWindow::openSerialPort()       //打开串口
                           .arg(p.stringParity).arg(p.stringStopBits).arg(p.stringFlowControl));
     }else
     {
-        QMessageBox::critical(this, tr("错误"), serial->errorString());
+//        QMessageBox::critical(this, tr("错误"), serial->errorString());
         showStatusMessage(tr("打开错误"));
     }
 }
@@ -89,7 +98,7 @@ void MainWindow::closeSerialPort()  //关闭串口
 
 void MainWindow::showStatusMessage(const QString &message)      //显示状态消息
 {
-    status->setText(message);
+    ui->statusBar->setText(message);
 }
 
 void MainWindow::writeData(const QByteArray &data)
@@ -100,6 +109,21 @@ void MainWindow::writeData(const QByteArray &data)
 void MainWindow::readData()
 {
     QByteArray data = serial->readAll();
+    ui->readPlainTextEdit->insertPlainText(data);    //方便插槽，用于在当前光标位置插入文本。
+    ui->readPlainTextEdit->centerCursor();   //滚动文档以使光标垂直居中。
 //    console->putData(data);
 }
 
+void MainWindow::handleError(QSerialPort::SerialPortError error)    //处理错误
+{
+    if (error == QSerialPort::ResourceError) {
+        QMessageBox::critical(this, tr("严重 错误"), serial->errorString());
+        closeSerialPort();      //关闭串口
+    }
+}
+
+void MainWindow::clearReadArea(void)
+{
+    ui->readPlainTextEdit->clear();
+
+}
