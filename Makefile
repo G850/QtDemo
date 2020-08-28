@@ -232,6 +232,7 @@ Makefile: Demo.pro D:/Qt/Qt5.9.0/5.9/mingw53_32/mkspecs/win32-g++/qmake.conf D:/
 		D:/Qt/Qt5.9.0/5.9/mingw53_32/mkspecs/features/lex.prf \
 		Demo.pro \
 		D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/qtmaind.prl \
+		D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/Qt5Charts.prl \
 		D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/Qt5Widgets.prl \
 		D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/Qt5Gui.prl \
 		D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/Qt5SerialPort.prl \
@@ -407,6 +408,7 @@ D:/Qt/Qt5.9.0/5.9/mingw53_32/mkspecs/features/yacc.prf:
 D:/Qt/Qt5.9.0/5.9/mingw53_32/mkspecs/features/lex.prf:
 Demo.pro:
 D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/qtmaind.prl:
+D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/Qt5Charts.prl:
 D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/Qt5Widgets.prl:
 D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/Qt5Gui.prl:
 D:/Qt/Qt5.9.0/5.9/mingw53_32/lib/Qt5SerialPort.prl:

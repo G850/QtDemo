@@ -161,11 +161,6 @@ public:
         applyButton = new QPushButton(SettingsDialog);
         applyButton->setObjectName(QStringLiteral("applyButton"));
         applyButton->setGeometry(QRect(250, 260, 80, 20));
-        parametersBox->raise();
-        selectBox->raise();
-        selectBox->raise();
-        groupBox_2->raise();
-        applyButton->raise();
 
         retranslateUi(SettingsDialog);
 

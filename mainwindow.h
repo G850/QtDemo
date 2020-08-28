@@ -31,10 +31,11 @@ public://公共sgjdfj
 private slots:
     void openSerialPort();
     void closeSerialPort();
-    void writeData(const QByteArray &data);
+    void writeData();
     void readData();
     void handleError(QSerialPort::SerialPortError error);
     void clearReadArea(void);
+    void ChartShow(void);
 
 private:
     void initActionsConnections();

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>683</width>
-    <height>380</height>
+    <height>371</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>310</y>
+      <y>280</y>
       <width>80</width>
       <height>20</height>
      </rect>
@@ -31,20 +31,20 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>280</y>
+      <y>250</y>
       <width>80</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>连接</string>
+     <string>打开串口</string>
     </property>
    </widget>
    <widget class="QPushButton" name="actionDisconnect">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>310</y>
+      <y>280</y>
       <width>80</width>
       <height>20</height>
      </rect>
@@ -74,7 +74,7 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>250</y>
+      <y>310</y>
       <width>331</width>
       <height>16</height>
      </rect>
@@ -103,13 +103,49 @@ p, li { white-space: pre-wrap; }
     <property name="geometry">
      <rect>
       <x>100</x>
+      <y>250</y>
+      <width>80</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>清除接收</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="actionSend">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>250</y>
+      <width>80</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>发送</string>
+    </property>
+   </widget>
+   <widget class="QtCharts::QChartView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>10</y>
+      <width>311</width>
+      <height>231</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="chartPushButton">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
       <y>280</y>
       <width>80</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>清除</string>
+     <string>图表</string>
     </property>
    </widget>
   </widget>
@@ -125,6 +161,13 @@ p, li { white-space: pre-wrap; }
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QtCharts::QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">qchartview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

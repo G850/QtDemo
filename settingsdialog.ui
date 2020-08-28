@@ -177,12 +177,6 @@
     <string>应用</string>
    </property>
   </widget>
-  <zorder>parametersBox</zorder>
-  <zorder>selectBox</zorder>
-  <zorder>selectBox</zorder>
-  <zorder>groupBox_2</zorder>
-  <zorder>applyButton</zorder>
-  <zorder>horizontalSpacer</zorder>
  </widget>
  <resources/>
  <connections/>
