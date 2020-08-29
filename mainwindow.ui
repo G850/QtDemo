@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>683</width>
-    <height>371</height>
+    <height>596</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -147,6 +147,17 @@ p, li { white-space: pre-wrap; }
     <property name="text">
      <string>图表</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>289</x>
+      <y>250</y>
+      <width>381</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="mainHorLayout"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

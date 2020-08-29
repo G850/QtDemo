@@ -7,6 +7,16 @@
 
 #include <QtSerialPort/QSerialPort>
 
+#include <QChart>
+#include <QLineSeries>
+
+#include <QTimer>
+
+#include "chartview.h"
+#include "callout.h"
+
+QT_CHARTS_USE_NAMESPACE //QChart命名空间
+
 QT_BEGIN_NAMESPACE
 
 class QLabel;
@@ -36,11 +46,26 @@ private slots:
     void handleError(QSerialPort::SerialPortError error);
     void clearReadArea(void);
     void ChartShow(void);
+    void ChartShow2(void);
+    void addSeries(QList<QPointF> &data);
+//--------------------------------------------------------
+    void timerSlot();
+    void buttonSlot();
+    void tipSlot(QPointF position, bool isHovering);
+//--------------------------------------------------------
 
 private:
     void initActionsConnections();
     void settingsShow(void);
+//--------------------------------------------------------
+    void wheelEvent(QWheelEvent *event);
 
+    void initUI();
+    void initChart();
+    void initSlot();
+
+    void updateData();
+//--------------------------------------------------------
 private://私人的
     void showStatusMessage(const QString &message);
 
@@ -49,7 +74,15 @@ private://私人的
     Console *console;
     QSerialPort *serial;
     SettingsDialog *settings;
-
+//--------------------------------------------------------
+    ChartView *chartView;
+    QChart *chart;
+    Callout *tip;
+    QLineSeries *series;
+    QTimer *timer;
+    quint16 count;
+    bool isStopping;
+//--------------------------------------------------------
 //    void MainWindow::closeEvent(QCloseEvent *event);
 };
 #endif // MAINWINDOW_H

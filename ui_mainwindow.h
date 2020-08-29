@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -40,6 +41,8 @@ public:
     QPushButton *actionSend;
     QtCharts::QChartView *graphicsView;
     QPushButton *chartPushButton;
+    QWidget *horizontalLayoutWidget;
+    QHBoxLayout *mainHorLayout;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -47,7 +50,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(683, 371);
+        MainWindow->resize(683, 596);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         actionConfigure = new QPushButton(centralwidget);
@@ -81,6 +84,12 @@ public:
         chartPushButton = new QPushButton(centralwidget);
         chartPushButton->setObjectName(QStringLiteral("chartPushButton"));
         chartPushButton->setGeometry(QRect(190, 280, 80, 20));
+        horizontalLayoutWidget = new QWidget(centralwidget);
+        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
+        horizontalLayoutWidget->setGeometry(QRect(289, 250, 381, 301));
+        mainHorLayout = new QHBoxLayout(horizontalLayoutWidget);
+        mainHorLayout->setObjectName(QStringLiteral("mainHorLayout"));
+        mainHorLayout->setContentsMargins(0, 0, 0, 0);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));

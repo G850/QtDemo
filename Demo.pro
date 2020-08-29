@@ -22,13 +22,15 @@ SOURCES += \
     mainwindow.cpp \
     settingsdialog.cpp \
     console.cpp \
-    chartview.cpp
+    chartview.cpp \
+    callout.cpp
 
 HEADERS += \
     mainwindow.h \
     settingsdialog.h \
     console.h \
-    chartview.h
+    chartview.h \
+    callout.h
 
 FORMS += \
     mainwindow.ui \
