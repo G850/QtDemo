@@ -45,9 +45,6 @@ private slots:
     void readData();
     void handleError(QSerialPort::SerialPortError error);
     void clearReadArea(void);
-    void ChartShow(void);
-    void ChartShow2(void);
-    void addSeries(QList<QPointF> &data);
 //--------------------------------------------------------
     void timerSlot();
     void buttonSlot();

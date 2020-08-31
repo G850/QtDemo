@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -23,7 +24,6 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
-#include <qchartview.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -39,10 +39,13 @@ public:
     QPlainTextEdit *readPlainTextEdit;
     QPushButton *actionClear;
     QPushButton *actionSend;
-    QtCharts::QChartView *graphicsView;
     QPushButton *chartPushButton;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *mainHorLayout;
+    QCheckBox *XcheckBox;
+    QCheckBox *YcheckBox;
+    QCheckBox *autoCheckBox;
+    QPushButton *stopBtn;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -50,7 +53,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(683, 596);
+        MainWindow->resize(745, 400);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         actionConfigure = new QPushButton(centralwidget);
@@ -78,22 +81,32 @@ public:
         actionSend = new QPushButton(centralwidget);
         actionSend->setObjectName(QStringLiteral("actionSend"));
         actionSend->setGeometry(QRect(190, 250, 80, 20));
-        graphicsView = new QtCharts::QChartView(centralwidget);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setGeometry(QRect(360, 10, 311, 231));
         chartPushButton = new QPushButton(centralwidget);
         chartPushButton->setObjectName(QStringLiteral("chartPushButton"));
         chartPushButton->setGeometry(QRect(190, 280, 80, 20));
         horizontalLayoutWidget = new QWidget(centralwidget);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(289, 250, 381, 301));
+        horizontalLayoutWidget->setGeometry(QRect(350, 10, 381, 301));
         mainHorLayout = new QHBoxLayout(horizontalLayoutWidget);
         mainHorLayout->setObjectName(QStringLiteral("mainHorLayout"));
         mainHorLayout->setContentsMargins(0, 0, 0, 0);
+        XcheckBox = new QCheckBox(centralwidget);
+        XcheckBox->setObjectName(QStringLiteral("XcheckBox"));
+        XcheckBox->setGeometry(QRect(350, 330, 73, 18));
+        YcheckBox = new QCheckBox(centralwidget);
+        YcheckBox->setObjectName(QStringLiteral("YcheckBox"));
+        YcheckBox->setGeometry(QRect(400, 330, 73, 18));
+        autoCheckBox = new QCheckBox(centralwidget);
+        autoCheckBox->setObjectName(QStringLiteral("autoCheckBox"));
+        autoCheckBox->setGeometry(QRect(450, 330, 73, 18));
+        autoCheckBox->setChecked(true);
+        stopBtn = new QPushButton(centralwidget);
+        stopBtn->setObjectName(QStringLiteral("stopBtn"));
+        stopBtn->setGeometry(QRect(520, 330, 80, 20));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 683, 22));
+        menubar->setGeometry(QRect(0, 0, 745, 22));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -120,6 +133,10 @@ public:
         actionClear->setText(QApplication::translate("MainWindow", "\346\270\205\351\231\244\346\216\245\346\224\266", Q_NULLPTR));
         actionSend->setText(QApplication::translate("MainWindow", "\345\217\221\351\200\201", Q_NULLPTR));
         chartPushButton->setText(QApplication::translate("MainWindow", "\345\233\276\350\241\250", Q_NULLPTR));
+        XcheckBox->setText(QApplication::translate("MainWindow", "X\350\275\264", Q_NULLPTR));
+        YcheckBox->setText(QApplication::translate("MainWindow", "Y\350\275\264", Q_NULLPTR));
+        autoCheckBox->setText(QApplication::translate("MainWindow", "\350\207\252\345\212\250", Q_NULLPTR));
+        stopBtn->setText(QApplication::translate("MainWindow", "\345\274\200\345\247\213", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>683</width>
-    <height>596</height>
+    <width>745</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -125,16 +125,6 @@ p, li { white-space: pre-wrap; }
      <string>发送</string>
     </property>
    </widget>
-   <widget class="QtCharts::QChartView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>10</y>
-      <width>311</width>
-      <height>231</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="chartPushButton">
     <property name="geometry">
      <rect>
@@ -151,13 +141,68 @@ p, li { white-space: pre-wrap; }
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>289</x>
-      <y>250</y>
+      <x>350</x>
+      <y>10</y>
       <width>381</width>
       <height>301</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="mainHorLayout"/>
+   </widget>
+   <widget class="QCheckBox" name="XcheckBox">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>330</y>
+      <width>73</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>X轴</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="YcheckBox">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>330</y>
+      <width>73</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Y轴</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="autoCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>330</y>
+      <width>73</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>自动</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopBtn">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>330</y>
+      <width>80</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开始</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -165,20 +210,13 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>683</width>
+     <width>745</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QtCharts::QChartView</class>
-   <extends>QGraphicsView</extends>
-   <header location="global">qchartview.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

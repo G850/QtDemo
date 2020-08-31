@@ -18,6 +18,11 @@ QLineSeries *series = new QLineSeries();
 uint16_t test_11111 = 0;
 uint16_t test_22221 = 0;
 
+double axisYmin = -5;
+double axisYmax = 5;
+double axisXmin = 0;
+double axisXmax = 97;
+int chartViewLength = 97;
 //QList<QSplineSeries *> Serieslist;
 //QChart *m_chart = new QChart();
 //QValueAxis *axisX = new QValueAxis;
@@ -41,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent) : //构造函数
 
     initUI();
 
-    timer->setInterval(50);
+    timer->setInterval(50); //50ms定时器
     timer->start();
 
     initSlot();
@@ -138,13 +143,11 @@ void MainWindow::writeData()
 
 void MainWindow::readData()
 {
-    static int j;
-    QByteArray data = serial->readAll();    //折线类 QSplineSeries，曲线类，画出来更平滑，QScatterSeries，点类，画出来是一个个单独的点。
     ui->readPlainTextEdit->insertPlainText(data);    //方便插槽，用于在当前光标位置插入文本。
     ui->readPlainTextEdit->centerCursor();   //滚动文档以使光标垂直居中。
 
-//    if(data.contains("cs:"))
-//    {
+    if(data.contains("cs:"))
+    {
 //        for (int i = 0; i < data.length(); i++) {
 
 //            test_22221 = data.at(i);
@@ -154,7 +157,8 @@ void MainWindow::readData()
 //            *series << p;
 //        }
 //        ChartShow();
-//    }
+    }
+
 }
 
 void MainWindow::handleError(QSerialPort::SerialPortError error)    //处理错误
@@ -170,131 +174,33 @@ void MainWindow::clearReadArea(void)
     ui->readPlainTextEdit->clear();
 }
 
-void MainWindow::ChartShow(void)
+void MainWindow::wheelEvent(QWheelEvent *event) //鼠标滚轮
 {
-    QChart *chart = new QChart();
-    chart->legend()->hide();    //图例影藏
-    chart->addSeries(series);   //添加坐标系
-    chart->createDefaultAxes(); //创建坐标轴
-    chart->setTitle("图表测试"); //设置图表抬头
+    if (event->delta() > 0) {   //大于0是向前
+        if(ui->XcheckBox->isChecked() == true)
+        {
+            chartViewLength = chartViewLength - 10;
+            if(chartViewLength <= 0)chartViewLength=1;
+        }
 
-    ui->graphicsView->setChart(chart);
-    ui->graphicsView->setRenderHint(QPainter::Antialiasing);    //渲染设置：抗锯齿
-}
+        if((ui->YcheckBox->isChecked() == true)||(ui->autoCheckBox->isChecked() == false))
+        {
+            chart->zoom(1.1);   //大于1.0放大视图
+        }
+    } else
+    {
+        if(ui->XcheckBox->isChecked() == 1)
+        {
+            chartViewLength = chartViewLength + 10;
+        }
 
-void MainWindow::ChartShow2(void)
-{
-//    QChart *Chart = new QChart();
-//    QChartView *ChartView = new QChartView(Chart, this);//画布
+        if((ui->YcheckBox->isChecked() == 1)||(ui->autoCheckBox->isChecked() == 0))
+        {
+            chart->zoom(10.0/11);   //而0.0到1.0的系数会缩小视图。
+        }
+    }
 
-//    Chart = ChartView->chart();//画笔
-//    ChartView->setRubberBand(QChartView::NoRubberBand);
-
-//    ChartView->setRenderHint(QPainter::Antialiasing);
-//    ChartView->resize(600, 600);
-//    ChartView->setContentsMargins(0,0,0,0);
-//    ChartView->show();
-//    //设置X坐标轴
-//    QValueAxis *AxisX = new QValueAxis;
-//    AxisX->setRange(0, 100);
-//    AxisX->setLabelFormat("%d");
-//    AxisX->setGridLineVisible(true);//网格显示
-//    AxisX->setTickCount(10);   //主要刻度
-//    AxisX->setTitleText("altitude/(%)");//轴的标题
-//    //设置y坐标轴
-//    QValueAxis *AxisY = new QValueAxis;
-//    AxisY->setRange(0, 20);
-//    AxisY->setLabelFormat("%d");
-//    AxisY->setGridLineVisible(true);
-//    AxisY->setTickCount(10);//轴上有多少个标记数目
-//    AxisY->setMinorTickCount(5);//主要刻度之间有多少网格线
-//    AxisY->setTitleText("altitude/(%)");
-
-//    Chart->addAxis(AxisX, Qt::AlignBottom);
-//    Chart->addAxis(AxisY, Qt::AlignLeft);
-
-//    Chart->legend()->setVisible(true);//设置图例可见
-//    Chart->legend()->setLayoutDirection(Qt::LeftToRight);//布局方向：左到右
-//    Chart->legend()->setAlignment(Qt::AlignLeft);//图表对齐方式：左对齐
-
-//    QList<QPointF> mydata1;
-//    for(int i=0; i<100; i++)
-//    {
-//        mydata1.append(QPointF(i, 0.1*i));
-//    }
-//    addSeries(mydata1);
-
-//    Chart->setAxisX(AxisX, Serieslist.first());
-//    Chart->setAxisY(AxisY, Serieslist.first());
-}
-
-void MainWindow::addSeries(QList<QPointF> &data)
-{
-//    QSplineSeries *series = new QSplineSeries(this);//平滑曲线的集合
-//    Serieslist.append(series);//将曲线加到曲线列表中进行管理
-//    series->setName(QString("line " + QString::number(Serieslist.count()))); //设置曲线对应的名字，用于图例显示
-//    series->append(data);  //将数据加到曲线中
-//    m_chart->addSeries(series);//将曲线增入chart中
-//    axisX->setRange(0, series->count());  //坐标轴初始范围为图表中的数据数。 这个在绘制多条曲线中需注释
-//    QPen splinePen ,linePen;
-//    splinePen.setBrush(Qt::red);
-//    splinePen.setColor(Qt::red);
-//    series->setPen(splinePen);
-
-//    QSplineSeries *lineSeries = new QSplineSeries(this);//折线类点的集合
-//    lineSeries->setName(QStringLiteral("折线"));
-//    QList<QPointF> lineData;
-//    QPoint newPoint;
-//    foreach (QPointF point, data) {
-//       newPoint.setX(point.x() * 1.5);
-//       newPoint.setY(point.y() * 1.5);
-//       lineData.append(newPoint);
-//    }
-//    //    lineSeries->append(0,0);
-//    //    lineSeries->append(10,10);
-//    //    lineSeries->append(15,15);
-//    lineSeries->append(lineData);
-//    linePen.setBrush(Qt::yellow);
-//    lineSeries->setPen(linePen);
-//    Serieslist.append(lineSeries);
-//    m_chart->addSeries(lineSeries);
-
-}
-
-//void Widget::timerEvent(QTimerEvent *event)    //定时器事件的重构
-//{
-//    if (event->timerId() == timeId)//定时器时间到，模拟数据填充
-//    {
-//        static QTime dataTime(QTime::currentTime());
-//        long int eltime = dataTime.elapsed();  //上次start经过毫秒数
-//        static int lastpointtime = 1;
-//        int size = (eltime - lastpointtime);//数据个数
-//        qDebug() << "size-->" << size;
-//        foreach (QSplineSeries  *splineSeries, m_serieslist) {
-//            if (splineSeries->isVisible())
-//            {
-//                QVector<QPointF> olddata = splineSeries->pointsVector();
-//                olddata.append(QPointF(lastpointtime +olddata.count(), lastpointtime*0.3));//填充数据--->>相当于每一分钟增加一点
-//                axisX->setRange(0, lastpointtime + splineSeries->count());//设置x坐标轴
-//                //后期需更改为一开始固定，只有当数据个数超出坐标轴范围时坐标轴开始扩展。
-//                splineSeries->replace(olddata);
-//                lastpointtime++;
-//            }
-//        }
-
-//    }
-//}
-
-
-void MainWindow::wheelEvent(QWheelEvent *event)
-{
-//    if (event->delta() > 0) {
-//        chart->zoom(1.1);
-//    } else {
-//        chart->zoom(10.0/11);
-//    }
-
-//    QWidget::wheelEvent(event);
+    QWidget::wheelEvent(event);
 }
 
 void MainWindow::initUI()
@@ -312,66 +218,98 @@ void MainWindow::initUI()
 
 void MainWindow::initChart()
 {
-    series = new QLineSeries;
+    series = new QLineSeries;   //创建一条线
 
-    chart->addSeries(series);
+    chart->addSeries(series);   //将线载入图表
 
 //    series->setUseOpenGL(true);
 
-    chart->createDefaultAxes();
-    chart->axisY()->setRange(-10, 10);
-    chart->axisX()->setRange(0, 96);
+    chart->createDefaultAxes(); //创建轴
+    chart->axisY()->setRange(-5, 5);    //Y轴最大最小值
+    chart->axisX()->setRange(0, 96);    //X轴最大最小值
 
-    chart->axisX()->setTitleFont(QFont("Microsoft YaHei", 10, QFont::Normal, true));
+    chart->axisX()->setTitleFont(QFont("Microsoft YaHei", 10, QFont::Normal, true));    //标签
     chart->axisY()->setTitleFont(QFont("Microsoft YaHei", 10, QFont::Normal, true));
-    chart->axisX()->setTitleText("Time/sec");
-    chart->axisY()->setTitleText("Speed/m");
+//    chart->axisX()->setTitleText("Time/sec");
+//    chart->axisY()->setTitleText("Speed/m");
 
-    chart->axisX()->setGridLineVisible(false);
-    chart->axisY()->setGridLineVisible(false);
+    chart->axisX()->setGridLineVisible(true);  //网格
+    chart->axisY()->setGridLineVisible(true);
 
     /* hide legend */
-    chart->legend()->hide();
+    chart->legend()->hide();    //隐藏图表
 
-    chartView = new ChartView(chart);
+    chartView = new ChartView(chart);   //创建窗体
     chartView->setRenderHint(QPainter::Antialiasing);
 
-    ui->mainHorLayout->addWidget(chartView);
+    ui->mainHorLayout->addWidget(chartView);    //在mainHorLayout处填入窗体
 }
 
 void MainWindow::initSlot()
 {
-    connect(timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
-//    connect(ui->stopBtn, SIGNAL(clicked(bool)), this, SLOT(buttonSlot()));
+    connect(timer, SIGNAL(timeout()), this, SLOT(timerSlot())); //定时器连接
+    connect(ui->stopBtn, SIGNAL(clicked(bool)), this, SLOT(buttonSlot()));
     connect(series, SIGNAL(hovered(QPointF, bool)), this, SLOT(tipSlot(QPointF,bool)));
 }
 
 void MainWindow::updateData()
 {
     int i;
+    static bool floag1 = 0;
+    static bool floagY = 0;
     QVector<QPointF> oldData = series->pointsVector();
     QVector<QPointF> data;
+    double appendData = 0;
 
-    if (oldData.size() < 97) {
-        data = series->pointsVector();  //以向量的形式返回系列中的点。 这比调用points（）更有效。
-    } else {
-        /* 添加之前老的数据到新的vector中，不复制最前的数据，即每次替换前面的数据
-         * 由于这里每次只添加1个数据，所以为1，使用时根据实际情况修改
-         */
-        for (i = 1; i < oldData.size(); ++i) {
-            data.append(QPointF(i - 1 , oldData.at(i).y()));
-        }
-    }
+    if (oldData.size() > chartViewLength)floag1 = true;
 
-    qint64 size = data.size();
+    data = series->pointsVector();
+
+    qint64 size = data.size();  //数据长度
     /* 这里表示插入新的数据，因为每次只插入1个，这里为i < 1,
      * 但为了后面方便插入多个数据，先这样写
      */
     for(i = 0; i < 1; ++i){
-        data.append(QPointF(i + size, 10 * sin(M_PI * count * 4 / 180)));
+        appendData = 10 * sin(M_PI * count * 4 / 180);
+        if(appendData > axisYmax)
+        {
+            axisYmax = appendData;
+            floagY = true;
+        }
+        if(appendData < axisYmin)
+        {
+            axisYmin = appendData;
+            floagY = true;
+        }
+        data.append(QPointF(i + size, appendData));   //添加新数据
     }
 
-    series->replace(data);
+    if(ui->autoCheckBox->isChecked() == true)
+    {
+        if(floag1 == 1)
+        {
+            axisXmin = count - chartViewLength;
+
+            if(axisXmin<0)
+            {
+                axisXmin = 0;
+                chartViewLength = count;
+            }
+
+            if(axisXmax < count)
+            {
+                axisXmax = count;
+            }
+        }
+        chart->axisX()->setRange(axisXmin, axisXmax);   //设置x坐标轴
+        if(floagY == true)
+        {
+            chart->axisY()->setRange(axisYmin, axisYmax);   //自动调整Y轴
+            floagY = false;
+        }
+    }
+
+    series->replace(data);  //刷新数据
 
     count++;
 }
@@ -385,14 +323,14 @@ void MainWindow::timerSlot()
 
 void MainWindow::buttonSlot()
 {
-//    if (QObject::sender() == ui->stopBtn) {
-//        if (!isStopping) {
-//            timer->stop();
-//        } else {
-//            timer->start();
-//        }
-//        isStopping = !isStopping;
-//    }
+    if (QObject::sender() == ui->stopBtn) {
+        if (!isStopping) {
+            timer->stop();
+        } else {
+            timer->start();
+        }
+        isStopping = !isStopping;
+    }
 }
 
 void MainWindow::tipSlot(QPointF position, bool isHovering)
