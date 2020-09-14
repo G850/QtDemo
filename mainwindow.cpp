@@ -13,19 +13,21 @@
 #include <QSplineSeries>
 #include <QValueAxis>
 
+#include <QtSerialPort/QSerialPortInfo>
+
+
 QLineSeries *series = new QLineSeries();
 
 uint16_t test_11111 = 0;
 uint16_t test_22221 = 0;
 
-double axisYmin = -5;
+double axisYmin = 0;
 double axisYmax = 5;
 double axisXmin = 0;
 double axisXmax = 97;
 int chartViewLength = 97;
-//QList<QSplineSeries *> Serieslist;
-//QChart *m_chart = new QChart();
-//QValueAxis *axisX = new QValueAxis;
+
+double ceshidjfgh = 0;
 
 MainWindow::MainWindow(QWidget *parent) : //构造函数
     QMainWindow(parent),
@@ -90,7 +92,7 @@ void MainWindow::settingsShow(void)
 {
     settings->show();
 }
-
+int test1=0;
 void MainWindow::openSerialPort()       //打开串口
 {
     SettingsDialog::Settings p = settings->settings();
@@ -132,32 +134,56 @@ void MainWindow::showStatusMessage(const QString &message)      //显示状态�
 
 void MainWindow::writeData()
 {
-    QString data = ui->writeTextEdit->toPlainText();
-    QByteArray bytes = data.toLocal8Bit();
+    QString data;// = ui->writeTextEdit->toPlainText();
+    QByteArray bytes;// = data.toLocal8Bit();
+    QSerialPort::Parity parity1 = static_cast<QSerialPort::Parity>(5);
 
     ui->readPlainTextEdit->insertPlainText(data);         //插入纯文本
     ui->readPlainTextEdit->centerCursor();   //滚动文档以使光标垂直居中。
 
+    data[0] = 0x00;
+    data[1] = 0x01;
+    data[2] = 0x02;
+    data[3] = 0x03;
+    data[4] = 0x04;
+    data[5] = 0x05;
+    data[6] = 0x06;
+    parity1 = static_cast<QSerialPort::Parity>(5);
+    serial->setParity(parity1);   //第9位0，MarkParity
+    bytes = data.toLocal8Bit();
+    serial->setBreakEnabled(true);
+    serial->setBreakEnabled(false);
     serial->write(bytes);
 }
 
 void MainWindow::readData()
 {
+    int tmp11 = 0;
+    QByteArray tmp;
+    QByteArray data = serial->readAll();    //折线类 QSplineSeries，曲线类，画出来更平滑，QScatterSeries，点类，画出来是一个个单独的点。
     ui->readPlainTextEdit->insertPlainText(data);    //方便插槽，用于在当前光标位置插入文本。
     ui->readPlainTextEdit->centerCursor();   //滚动文档以使光标垂直居中。
 
-    if(data.contains("cs:"))
-    {
-//        for (int i = 0; i < data.length(); i++) {
+//    if(data.contains("cs:"))
 
-//            test_22221 = data.at(i);
-//            test_11111 = j++;
+//    ui->paramLineEdit->text().append(':');
+//    ui->paramLineEdit->text().length();
 
-//            QPointF p((qreal) test_11111, test_22221);
-//            *series << p;
-//        }
-//        ChartShow();
-    }
+//    data.indexOf();
+//    if()
+
+        if(data.left(ui->paramLineEdit->text().size()) == ui->paramLineEdit->text())
+        {
+            tmp11 = data.indexOf("\r\n");
+            for(int i = 0; i < tmp11; i++)
+            {
+                if(data[i]>='0' && data[i]<='9')
+                {
+                    tmp.append(data[i]);
+                }
+            }
+            ceshidjfgh = tmp.toDouble();
+        }
 
 }
 
@@ -225,7 +251,7 @@ void MainWindow::initChart()
 //    series->setUseOpenGL(true);
 
     chart->createDefaultAxes(); //创建轴
-    chart->axisY()->setRange(-5, 5);    //Y轴最大最小值
+    chart->axisY()->setRange(0, 5);    //Y轴最大最小值
     chart->axisX()->setRange(0, 96);    //X轴最大最小值
 
     chart->axisX()->setTitleFont(QFont("Microsoft YaHei", 10, QFont::Normal, true));    //标签
@@ -270,7 +296,7 @@ void MainWindow::updateData()
      * 但为了后面方便插入多个数据，先这样写
      */
     for(i = 0; i < 1; ++i){
-        appendData = 10 * sin(M_PI * count * 4 / 180);
+        appendData = ceshidjfgh;//10 * sin(M_PI * count * 4 / 180);
         if(appendData > axisYmax)
         {
             axisYmax = appendData;

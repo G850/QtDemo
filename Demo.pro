@@ -23,14 +23,16 @@ SOURCES += \
     settingsdialog.cpp \
     console.cpp \
     chartview.cpp \
-    callout.cpp
+    callout.cpp \
+    dmxcontrol.cpp
 
 HEADERS += \
     mainwindow.h \
     settingsdialog.h \
     console.h \
     chartview.h \
-    callout.h
+    callout.h \
+    dmxcontrol.h
 
 FORMS += \
     mainwindow.ui \
